@@ -1,2 +1,3 @@
 # Conversor-De-Moedas
-Um projeto em HTML, CSS e JS onde converte de real para dólares ou euros.
+
+Um projeto em PHP orientado a objetos e CSS onde converte de real para dólares ou euros.
