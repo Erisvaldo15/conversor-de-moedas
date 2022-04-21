@@ -1,0 +1,22 @@
+{
+    "name": "erisvaldo/conversor-de-moedas",
+    "authors": [
+        {
+            "name": "Erisvaldo",
+            "email": "erisvaldosilvadesousa38@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "files": [
+            "app/helpers/config.php",
+            "app/helpers/pages.php"
+        ],
+        "psr-4": {
+            "app\\": "app"
+        }
+    },
+    "require": {
+        "symfony/var-dumper": "^6.0"
+    }
+}

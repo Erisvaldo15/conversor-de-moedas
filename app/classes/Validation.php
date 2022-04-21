@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Classes;
+namespace app\classes;
 
-include_once "../helper/config.php";
-include_once "../classes/money.php";
+use Exception; 
 
 class Validation {
 
-    public static function validField($money, $selectTypeFrom, $selectTypeTo): Money {
+    public static function validField($money, $selectTypeFrom, $selectTypeTo) {
 
         if(empty($money)) {
             message("Preencha o campo com o valor que você deseja converter!");
@@ -19,17 +18,30 @@ class Validation {
             exit();
         }
 
-        return new Money($money, $selectTypeFrom, $selectTypeTo);
+        
+
     }
 
-    public static function verifySession(): bool {
+    public static function validSession(): bool {
 
         if(empty($_SESSION['convertido'])) {
-            header("location: ../../public/");
+            header("location: ?page=home");
             return false;
         }
 
         return true;
+    }
+
+    public static function verifyPage() {
+
+        try {
+            require load();
+        }
+
+        catch(Exception $e) {
+            echo "<p> {$e->getMessage()} </p>";
+        }
+
     }
 
 }
