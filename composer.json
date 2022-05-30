@@ -9,8 +9,10 @@
     "minimum-stability": "stable",
     "autoload": {
         "files": [
-            "app/helpers/config.php",
-            "app/helpers/pages.php"
+            "app/helpers/redirect.php",
+            "app/helpers/request.php",
+            "app/helpers/pages.php",
+            "app/helpers/message.php"
         ],
         "psr-4": {
             "app\\": "app"

@@ -2,22 +2,60 @@
 
 namespace app\classes;
 
-abstract class Money {
+use app\classes\api\Price;
+use app\classes\validation\Validate;
 
-    private $coins = ['euro', 'dólar-americano', 'real', 'peso-argentino', 'dólar-canadense', 'rublo-russo'];
+class Money {
 
-    public function coins() {
-        return $this->coins;
-    }
+    public array $coins = ['euro', 'dólar-americano', 'real', 'peso-argentino', 'dólar-canadense', 'rublo-russo'];
+    private array $selectedCoins = [];
 
-    protected function money($money) {
-
-        if(!filter_var($money, FILTER_VALIDATE_FLOAT)) {
-            message("Valor inválido");
-            exit();
+    public function convert(float|string|null $money, array $coins) {
+        
+        if($validate = Validate::validate($money, $coins)) {
+           $price = ((new Price)->get($validate));
+           return number_format($price->{str_replace("-","",$validate)}->bid * $money, 2, ',', '.');
         }
 
-        return $money;
     }
- 
+
+    public function selectCoins(array $select): array {
+
+        for($i = 0; $i < count($select); $i++) {
+
+            switch($select[$i]) {
+            
+                case $select[$i] == "euro":
+                        $this->selectedCoins[] = "EUR";
+                break;
+    
+                case $select[$i] == "dólar-americano":
+                    $this->selectedCoins[] = "USD";
+                break;
+    
+                case $select[$i] == "real":
+                    $this->selectedCoins[] = "BRL";
+                break;
+    
+                case $select[$i] == "peso-argentino": // olha só... 
+                    $this->selectedCoins[] = "ARS";
+                break;
+    
+                case $select[$i] == "dólar-canadense":
+                    $this->selectedCoins[] = "CAD";
+                break;
+    
+                case $select[$i] == "rublo-russo":
+                    $this->selectedCoins[] = "RUB";
+                break;
+    
+            }
+
+        }
+
+        $_GET['flag'] = $select[1];
+
+        return $this->selectedCoins;
+    }
+
 }
